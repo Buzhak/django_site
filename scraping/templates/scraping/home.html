@@ -11,14 +11,19 @@
                 <h5><a href='{{ obj.url}}'> Вакансия: {{ obj  }}</a></h5>
             </div>
             <div class="card-body">
+                <h4>{{ obj.company }}</h4>
                 <p> {{ obj.description }}</p>
                 <p>{{ obj.city.name }} | {{ obj.language.name }} | {{ obj.timestamp|date:"d-m-Y" }}</p>
             </div>
           </div>
+            {% empty %}
+            <div class="col-md-6 mx-auto">
+                <h3>По вашему запросу ничего не найдено</h3>
+            </div>
     {% endfor %}
 
-    <div class="row mx-auto">
-        <div class="col-md-2">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
             <form method="GET" action="">
                 {{ form.as_p }}
                 <div class="mb-3">

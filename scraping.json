@@ -1,0 +1,73 @@
+[
+{
+  "model": "scraping.city",
+  "pk": 1,
+  "fields": {
+    "name": "Киев",
+    "slug": "kiev"
+  }
+},
+{
+  "model": "scraping.city",
+  "pk": 2,
+  "fields": {
+    "name": "Москва",
+    "slug": "Moscow"
+  }
+},
+{
+  "model": "scraping.language",
+  "pk": 1,
+  "fields": {
+    "name": "Java",
+    "slug": "java"
+  }
+},
+{
+  "model": "scraping.language",
+  "pk": 2,
+  "fields": {
+    "name": "Python",
+    "slug": "python"
+  }
+},
+{
+  "model": "scraping.vacancy",
+  "pk": 1,
+  "fields": {
+    "url": "http://192.168.1.1",
+    "title": "Программист Python",
+    "company": "ИП",
+    "description": "Бла-бла",
+    "city": 2,
+    "language": 2,
+    "timestamp": "2022-01-18"
+  }
+},
+{
+  "model": "scraping.vacancy",
+  "pk": 2,
+  "fields": {
+    "url": "http://192.168.1.2",
+    "title": "Программист Java",
+    "company": "ИП",
+    "description": "Бла бла бла",
+    "city": 1,
+    "language": 1,
+    "timestamp": "2022-01-18"
+  }
+},
+{
+  "model": "scraping.vacancy",
+  "pk": 3,
+  "fields": {
+    "url": "http://192.168.1.3",
+    "title": "Java",
+    "company": "ИП",
+    "description": "что-то",
+    "city": 1,
+    "language": 1,
+    "timestamp": "2022-01-20"
+  }
+}
+]
