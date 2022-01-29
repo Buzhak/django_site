@@ -1,4 +1,3 @@
-from distutils.log import error
 import requests
 import codecs
 from bs4 import BeautifulSoup as BS
@@ -27,12 +26,16 @@ def hh():
 
                 title = job_title.text
                 href = job_title['href']
-                salary = job_salary
+                salary = str(job_salary)
+                if salary == "":
+                    salary = "з.п не указана"
                 company_name = div.find("a", attrs={"data-qa":"vacancy-serp__vacancy-employer"}).text
-                city = div.find("div", attrs={"data-qa":"vacancy-serp__vacancy-address"}).text
+                # city = div.find("div", attrs={"data-qa":"vacancy-serp__vacancy-address"}).text
                 context = div.find("div", attrs={"class":"g-user-content"}).text
-                logo = div.find("img")
-                jobs.append({'title': title, 'url': href, 'salary': salary, 'company': company_name, 'city': city, 'context': context, 'logo': logo})
+                # logo = div.find("img")
+                # if logo == None:
+                #     logo = 'Нет логотипа'
+                jobs.append({'url': href, 'title': title, 'company': company_name, 'description': context, 'salary': salary})
         else:
             errors.append({'url': url, 'title': "Main div does not exists"})
     else: 
