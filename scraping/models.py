@@ -3,7 +3,9 @@ from pyexpat import model
 from re import M
 from django.db import models
 from .utils import from_cyrillic_to_eng
- 
+
+def default_urls():
+    return {'hh': '', }
 
 # Create your models here.
 class City(models.Model):
@@ -75,3 +77,19 @@ class Error(models.Model):
 
     def __str__(self):
         return self.timestamp
+
+
+class Url(models.Model):
+
+    city = models.ForeignKey('City', on_delete=models.CASCADE, verbose_name='Город')
+    language = models.ForeignKey('Language', on_delete=models.CASCADE, verbose_name='Язык программирования')
+    url_data = models.JSONField(default=default_urls)
+
+
+    class Meta:
+        unique_together = ("city", "language")
+        verbose_name = 'Адрес запроса'
+        verbose_name_plural = 'Адреса запроса'
+
+    def __str__(self):
+        return f'{self.city} - {self.language}'

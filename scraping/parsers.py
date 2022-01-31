@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup as BS
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)',
            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
     }
-def hh():
-    url = 'https://khimki.hh.ru/search/vacancy?area=1&search_field=name&search_field=company_name&search_field=description&text=Python+junior&clusters=true&ored_clusters=true&enable_snippets=true'
+def hh(url_serching: str):
+    url = url_serching
     resp = requests.get(url, headers=headers)
     jobs = []
     errors = []
@@ -46,7 +46,8 @@ def hh():
     return jobs, errors
 
 if __name__ == '__main__':
-    data_ = hh()
+    url_test = 'https://khimki.hh.ru/search/vacancy?area=1&search_field=name&search_field=company_name&search_field=description&text=Python+junior&clusters=true&ored_clusters=true&enable_snippets=true'
+    data_ = hh(url_test)
     jobs = data_[0]
     h = codecs.open('work.txt', 'w', 'utf-8')
     h.write(str(jobs))
