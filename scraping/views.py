@@ -7,6 +7,12 @@ from .models import Vacancy
 # Create your views here.
 def home_view(request):
     form = FindForm()
+    # city = request.GET.get('city')
+
+    return render(request, 'scraping/home.html', {'form': form})
+
+def list_view(request):
+    form = FindForm()
     city = request.GET.get('city')
     language = request.GET.get('language')
     qs = []
@@ -18,4 +24,4 @@ def home_view(request):
             _filter['language__slug'] = language
     
         qs = Vacancy.objects.filter(**_filter)
-    return render(request, 'scraping/home.html', {'object_list': qs, 'form': form})
+    return render(request, 'scraping/list.html', {'object_list': qs, 'form': form})

@@ -16,10 +16,6 @@ from scraping.models import Vacancy, City, Language, Error, Url
 
 User = get_user_model()
 
-parsers = hh('https://khimki.hh.ru/search/vacancy?area=1&search_field=name&search_field=company_name&search_field=description&text=Python+junior&clusters=true&ored_clusters=true&enable_snippets=true')
-jobs = parsers[0]
-errors = parsers[1]
-
 def get_settings():
     qs = User.objects.filter(send_email=True).values()
     settings_lst = set((q['city_id'], q['language_id']) for q in qs)
@@ -38,16 +34,22 @@ def get_urls(_settings):
         urls.append(tmp)
     return urls
 
-q = get_settings()
-u = get_urls(q)
+settings = get_settings()
+url_list = get_urls(settings)
+jobs, errors = [], []
 
-1=1 # сломал тут, что бы не запутаться 
+for data in url_list:
+    url = list(data['url_data'].values())[0] #достаю единственное значение из вложенного словаря с url адресом
+    # parsers = hh('https://khimki.hh.ru/search/vacancy?area=1&search_field=name&search_field=company_name&search_field=description&text=Python+junior&clusters=true&ored_clusters=true&enable_snippets=true')
+    parsers = hh(url, city=data['city'], language=data['language'])
+    jobs += parsers[0]
+    errors += parsers[1]
 
-city = City.objects.filter(slug='khimki').first() # .first() - нужно для того, чтобы получить инстанс 
-language = Language.objects.filter(slug='python').first()
+# city = City.objects.filter(slug='khimki').first() # .first() - нужно для того, чтобы получить инстанс 
+# language = Language.objects.filter(slug='python').first()
 
 for job in jobs:
-    vacancy = Vacancy(**job, city=city, language=language)
+    vacancy = Vacancy(**job)
 
     try:
         vacancy.save()
