@@ -1,4 +1,3 @@
-import codecs
 # запускаем django отдельно от проекта 
 import os, sys
 from sqlite3 import DatabaseError
